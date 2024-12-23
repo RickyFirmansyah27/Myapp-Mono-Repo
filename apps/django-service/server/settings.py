@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import colorlog
 from urllib.parse import urlparse
 
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +121,31 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'colorized',
+        },
+    },
+    'formatters': {
+        'colorized': {
+            '()': colorlog.ColoredFormatter,
+            'format': '%(log_color)s%(levelname)-8s%(reset)s %(blue)s%(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
