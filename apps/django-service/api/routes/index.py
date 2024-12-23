@@ -1,7 +1,7 @@
 # api/routes/index.py
 from django.urls import path
-from api.views.getHello import getHello
+from api.controller import userController
 
 urlpatterns = [
-    path('api/hello/', getHello, name='hello'),
+    path('api/users/', userController.getUsers, name='get user data'),
 ]

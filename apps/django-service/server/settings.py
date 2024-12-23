@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import logging
 import colorlog
 from urllib.parse import urlparse
 
@@ -41,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api',
+    'api.apps.MyappConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'console': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'colorized',
         },
@@ -134,18 +135,32 @@ LOGGING = {
     'formatters': {
         'colorized': {
             '()': colorlog.ColoredFormatter,
-            'format': '%(log_color)s%(levelname)-8s%(reset)s %(blue)s%(message)s',
+            'format': (
+                '%(asctime)s [%(log_color)s%(levelname)s%(reset)s] [%(name)s] - %(message)s'
+            ),
             'datefmt': '%Y-%m-%d %H:%M:%S',
+            'log_colors': {
+                'DEBUG': 'green',
+                'INFO': 'yellow',
+                'WARNING': 'blue',
+                'ERROR': 'red',
+                'CRITICAL': 'bold_red',
+            },
         },
     },
+    'root': {  # Root logger
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
     'loggers': {
-        'django': {
+        'django': {  # Specific configuration for Django
             'handlers': ['console'],
             'level': 'INFO',
             'propagate': True,
         },
     },
 }
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
