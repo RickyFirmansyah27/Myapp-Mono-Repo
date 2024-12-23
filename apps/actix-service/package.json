@@ -1,0 +1,9 @@
+{
+    "name": "actix-service",
+    "scripts": {
+        "start": "make start",
+        "dev": "make run",
+        "clean": "make clean",
+        "install": "make clean"
+    }
+}

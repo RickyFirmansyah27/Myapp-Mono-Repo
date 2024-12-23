@@ -1,0 +1,7 @@
+{
+    "name": "django-app",
+    "scripts": {
+        "dev": "make run",
+        "install": "make install"
+    }
+}

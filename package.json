@@ -4,6 +4,8 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "django": "turbo run dev --filter=django-service",
+    "hyper": "turbo run dev --filter=hyper-service",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

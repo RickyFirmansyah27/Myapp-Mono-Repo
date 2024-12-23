@@ -1,0 +1,10 @@
+django
+pymysql
+djangorestframework
+django-cors-headers
+python-decouple
+cryptography
+colorlog
+psycopg2-binary
+dj-database-url
+psycopg2
