@@ -4,6 +4,7 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "actix": "turbo run dev --filter=axtic-service",
     "django": "turbo run dev --filter=django-service",
     "hyper": "turbo run dev --filter=hyper-service",
     "lint": "turbo lint",
