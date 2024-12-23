@@ -9,14 +9,17 @@ use crate::models::AppState;
 async fn main() -> std::io::Result<()> {
     let app_state = web::Data::new(AppState::new());
     
-    println!("Server running at http://localhost:8101");
+    let port = 8101;
+    let address = format!("127.0.0.1:{}", port);
+
+    println!("[Actix-Service] Server is running on port {}", port);
     
     HttpServer::new(move || {
         App::new()
             .app_data(app_state.clone())
             .configure(routes::config)
     })
-    .bind("127.0.0.1:8101")?
+    .bind(address)?
     .run()
     .await
 }

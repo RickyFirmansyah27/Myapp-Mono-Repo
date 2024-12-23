@@ -12,7 +12,7 @@ def runserver_with_connection_check():
 
     execute_from_command_line(sys.argv)
 
-    logger.info("Django service running on port 8103")
+    logger.info("[Django-Service] Server is running on port 8102")
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "server.settings")

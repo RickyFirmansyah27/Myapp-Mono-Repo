@@ -1,4 +1,4 @@
-use actix_web::{web, HttpResponse, Responder};
+use actix_web::{web};
 use crate::controllers::hello;
 
 pub fn config(cfg: &mut web::ServiceConfig) {
