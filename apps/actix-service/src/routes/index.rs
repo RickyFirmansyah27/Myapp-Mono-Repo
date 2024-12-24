@@ -1,9 +1,9 @@
 use actix_web::{web};
-use crate::controllers::hello;
+use crate::controllers::user_controller::{get_users};
 
 pub fn config(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("/api")
-            .route("/", web::get().to(hello))
+            .route("/user", web::get().to(get_users))
     );
 }
