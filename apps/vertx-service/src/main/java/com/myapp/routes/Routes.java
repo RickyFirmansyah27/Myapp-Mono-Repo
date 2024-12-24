@@ -1,6 +1,6 @@
-package routes;
+package com.myapp.routes;
 
-import controller.UserController;
+import com.myapp.controller.UserController;
 import io.vertx.ext.web.Router;
 import io.vertx.core.Vertx;
 

@@ -1,7 +1,7 @@
-package controller;
+package com.myapp.controller;
 
-import helper.BaseResponse;
-import io.vertx.core.json.JsonArray;
+import com.myapp.helper.BaseResponse;
+// import io.vertx.core.json.JsonArray;
 import io.vertx.ext.web.RoutingContext;
 
 import java.util.ArrayList;

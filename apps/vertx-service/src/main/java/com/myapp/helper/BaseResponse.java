@@ -1,4 +1,4 @@
-package helper;
+package com.myapp.helper;
 
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
