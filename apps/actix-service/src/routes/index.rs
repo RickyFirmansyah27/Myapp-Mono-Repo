@@ -4,6 +4,6 @@ use crate::controllers::user_controller::{get_users};
 pub fn config(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("/api")
-            .route("/user", web::get().to(get_users))
+            .route("/users", web::get().to(get_users))
     );
 }

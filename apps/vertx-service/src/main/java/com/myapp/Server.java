@@ -9,7 +9,7 @@ public class Server {
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
         Router router = Routes.createRouter(vertx);
-        final int port = 8004;
+        final int port = 8104;
 
         // Menambahkan BodyHandler untuk menerima data POST jika diperlukan
         router.route().handler(BodyHandler.create());
