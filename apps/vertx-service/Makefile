@@ -2,7 +2,7 @@
 MVN=mvn
 
 # Targets
-dev:
+run:
 	$(MVN) compile exec:java
 
 build:

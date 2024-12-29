@@ -2,7 +2,7 @@
     "name": "vertx-service",
     "version": "1.0.0",
     "scripts": {
-      "dev": "make dev",
+      "dev": "make run",
       "clean": "make clean",
       "build": "make build"
     }
