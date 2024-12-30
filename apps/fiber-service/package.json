@@ -1,0 +1,7 @@
+{
+    "name": "fiber-service",
+    "scripts": {
+        "dev": "make dev",
+        "build": "make build"
+    }
+}

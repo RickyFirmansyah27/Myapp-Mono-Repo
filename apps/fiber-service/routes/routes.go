@@ -8,7 +8,7 @@ import (
 
 func SetupRoutes(app *fiber.App) {
 	// Middleware
-	api := app.Group("/users", logger.New())
+	api := app.Group("/api/user", logger.New())
 
 	// routes
 	api.Get("/", controllers.GetAllUsers)
