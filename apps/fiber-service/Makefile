@@ -1,7 +1,7 @@
 # Variables
 GO=go
 DIST_DIR=dist
-OUTPUT_BINARY=$(DIST_DIR)/index
+OUTPUT_BINARY=$(DIST_DIR)/fiber.exe
 
 # Targets
 
@@ -12,8 +12,8 @@ build:
 	@if not exist $(DIST_DIR) mkdir $(DIST_DIR)
 	$(GO) build -o $(OUTPUT_BINARY)
 
-run: build
-	@./$(OUTPUT_BINARY)
+run: 
+	cd dist && fiber.exe
 
 test:
 	$(GO) test ./...
