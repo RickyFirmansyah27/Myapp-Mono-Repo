@@ -7,7 +7,7 @@ run:
 	$(BUN) run nodemon ./src/index.js
 
 build:
-	@mkdir -p $(DIST_DIR)
+	@mkdir $(DIST_DIR)
 	$(BUN) build ./src/index --outdir $(DIST_DIR) --target node
 
 test:
