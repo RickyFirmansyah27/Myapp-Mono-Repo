@@ -1,7 +1,10 @@
 {
     "name": "fiber-service",
+    "version": "1.0.0",
     "scripts": {
-        "dev": "make dev",
-        "build": "make build"
+      "dev": "make run",
+      "clean": "make clean",
+      "build": "make build"
     }
-}
+  }
+  

@@ -23,5 +23,5 @@ func main() {
 
 	routes.SetupRoutes(app)
 	
-	app.Listen(":8106")
+	app.Listen(":8104")
 }
