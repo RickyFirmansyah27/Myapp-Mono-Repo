@@ -2,6 +2,7 @@
     "name": "dotnet-service",
     "scripts": {
         "dev": "make dev",
-        "startup": "make install"
+        "startup": "make install",
+        "build": "make build"
     }
 }

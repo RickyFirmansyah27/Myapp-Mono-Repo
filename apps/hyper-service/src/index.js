@@ -4,7 +4,7 @@ import { routes } from "./route/index.js";
 import { Logger } from "./helper/logger.js";
 
 const app = new HyperExpress.Server();
-const port = 8103;
+const port = 8105;
 
 app.use(cors({
   origin: '*',
