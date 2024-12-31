@@ -1,0 +1,10 @@
+.env
+.gitignore
+README.md
+migrate
+.air.toml
+Makefile
+README.md
+package.json
+logs
+dist

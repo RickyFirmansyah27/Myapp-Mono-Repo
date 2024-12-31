@@ -1,0 +1,10 @@
+bin
+obj
+dotnet-service.http
+README.md
+dist
+.gitignore
+appsettings.Development.json
+logs
+Makefile
+package.json
