@@ -13,7 +13,7 @@ async fn main() -> std::io::Result<()> {
     let app_state = web::Data::new(AppState::new());
 
     let port = 8101;
-    let address = format!("127.0.0.1:{}", port);
+    let address = format!("0.0.0.0:{}", port);
 
     println!("[Actix-Service] Server is running on http://{}", address);
 

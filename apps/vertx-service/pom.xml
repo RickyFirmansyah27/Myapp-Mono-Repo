@@ -29,16 +29,38 @@
         </dependency>
     </dependencies>
     <build>
-    <plugins>
-        <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>3.0.0</version>
-            <configuration>
-                <mainClass>com.myapp.Server</mainClass>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
-
+        <plugins>
+            <!-- Plugin untuk membuat fat JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.myapp.Server</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Plugin untuk menjalankan aplikasi selama pengembangan -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>com.myapp.Server</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
