@@ -1,0 +1,68 @@
+_format_version: "2.1"
+_transform: true
+
+plugins:
+  - name: cors
+    config:
+      origins:
+        - "*"
+      methods:
+        - GET
+        - POST
+        - PUT
+        - PATCH
+        - DELETE
+        - OPTIONS
+
+services:
+  - name: example-service
+    url: https://mockbin.org
+    routes:
+      - name: public-route
+        paths:
+          - /api
+          
+  - name: actix-service
+    url: http://actix-services:8101
+    routes:
+      - name: actix-route
+        paths:
+          - /actix
+        strip_path: true
+        preserve_host: false
+
+  - name: django-service
+    url: http://django-services:8102
+    routes:
+      - name: django-route
+        paths:
+          - /django
+        strip_path: true
+        preserve_host: false
+
+  - name: dotnet-service
+    url: http://dotnet-services:8103
+    routes:
+      - name: dotnet-route
+        paths:
+          - /dotnet
+        strip_path: true
+        preserve_host: false
+
+  - name: fiber-service
+    url: http://fiber-services:8104
+    routes:
+      - name: fiber-route
+        paths:
+          - /fiber
+        strip_path: true
+        preserve_host: false
+
+  - name: vertx-service
+    url: http://vertx-services:8106
+    routes:
+      - name: vertx-route
+        paths:
+          - /vertx
+        strip_path: true
+        preserve_host: false

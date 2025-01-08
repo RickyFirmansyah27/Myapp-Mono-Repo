@@ -1,0 +1,98 @@
+services:
+  actix-services:
+    image: actix-services
+    build:
+      context: ./apps/actix-service
+      dockerfile: Dockerfile
+    container_name: actix-services
+    ports:
+      - "8101:8101"
+    networks:
+      - my-app-network
+
+  django-services:
+    image: django-services
+    build:
+      context: ./apps/django-service
+      dockerfile: Dockerfile
+    container_name: django-services
+    ports:
+      - "8102:8102"
+    networks:
+      - my-app-network
+  
+  dotnet-services:
+    image: dotnet-services
+    build:
+      context: ./apps/dotnet-service
+      dockerfile: Dockerfile
+    container_name: dotnet-services
+    ports:
+      - "8103:8103"
+    networks:
+      - my-app-network
+
+  fiber-services:
+    image: fiber-services
+    build:
+      context: ./apps/fiber-service
+      dockerfile: Dockerfile
+    container_name: fiber-services
+    ports:
+      - "8104:8104"
+    networks:
+      - my-app-network
+
+  vertx-services:
+    image: vertx-services
+    build:
+      context: ./apps/vertx-service
+      dockerfile: Dockerfile
+    container_name: vertx-services
+    ports:
+      - "8106:8106"
+    networks:
+      - my-app-network
+
+  api-gateway-services:
+    image: api-gateway-services
+    build:
+      context: ./apps/api-gateway-service
+      dockerfile: Dockerfile
+    container_name: api-gateway-service
+    # build:
+    #   context: ./apps/api-gateway-service
+    #   dockerfile: Dockerfile
+    volumes:
+      - ./apps/api-gateway-service/config:/etc/kong/declarative
+    environment:
+      # Use the config defined in config/kong.yml
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: /etc/kong/declarative/kong.yml
+      # Show all output in the terminal when running with Docker
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      # Enable the JS plugin server
+      # KONG_PLUGINSERVER_NAMES: js
+      # KONG_PLUGINSERVER_JS_SOCKET: /usr/local/kong/js_pluginserver.sock
+      # KONG_PLUGINSERVER_JS_START_CMD: /usr/local/bin/kong-js-pluginserver -v --plugins-directory /usr/local/kong/js-plugins
+      # KONG_PLUGINSERVER_JS_QUERY_CMD: /usr/local/bin/kong-js-pluginserver --plugins-directory /usr/local/kong/js-plugins --dump-all-plugins
+      KONG_LOG_LEVEL: debug
+      # Allow plugins to be used. The plugin name is your JS file name e.g. hello.js
+      KONG_PLUGINS: bundled,cors
+      KONG_RESPONSE_TRANSFORMER_REMOVE_HEADERS: false
+    ports:
+      - "8000:8000/tcp"
+    healthcheck:
+      test: [ "CMD", "kong", "health" ]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+    restart: on-failure
+    networks:
+      - my-app-network
+
+networks:
+  my-app-network:
