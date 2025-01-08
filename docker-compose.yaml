@@ -84,7 +84,7 @@ services:
       KONG_PLUGINS: bundled,cors
       KONG_RESPONSE_TRANSFORMER_REMOVE_HEADERS: false
     ports:
-      - "8000:8000/tcp"
+      - "8080:8000/tcp"
     healthcheck:
       test: [ "CMD", "kong", "health" ]
       interval: 10s
