@@ -1,0 +1,45 @@
+services:
+  actix-services:
+    image: actix-services
+    build:
+      context: ./apps/actix-service
+      dockerfile: Dockerfile
+    container_name: actix-services
+    ports:
+      - "8101:8101"
+
+  django-services:
+    image: django-services
+    build:
+      context: ./apps/django-service
+      dockerfile: Dockerfile
+    container_name: django-services
+    ports:
+      - "8102:8102"
+  
+  dotnet-services:
+    image: dotnet-services
+    build:
+      context: ./apps/dotnet-service
+      dockerfile: Dockerfile
+    container_name: dotnet-services
+    ports:
+      - "8103:8103"
+
+  fiber-services:
+    build:
+      context: ./apps/fiber-service
+      dockerfile: Dockerfile
+    container_name: fiber-services
+    ports:
+      - "8104:8104"
+
+  vertx-services:
+    image: vertx-services
+    build:
+      context: ./apps/vertx-service
+      dockerfile: Dockerfile
+    container_name: vertx-services
+    ports:
+      - "8106:8106"
+
