@@ -1,0 +1,35 @@
+{
+    "name": "hono-service",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "module": "src/index.js",
+    "scripts": {
+        "dev": "bun run --hot src/index.ts",
+        "build": "bun build ./src/index.ts --outdir ./dist --target node",
+        "clean": "rm -rf ./dist",
+        "prebuild": "npm run clean",
+        "start": "bun run ./dist/index.js"
+    },
+    "dependencies": {
+        "@hapi/boom": "^10.0.0",
+        "@hono/node-server": "^1.13.7",
+        "@logtail/node": "^0.5.2",
+        "@logtail/winston": "^0.5.2",
+        "dotenv": "^16.4.7",
+        "hono": "^3.11.7",
+        "moment": "^2.30.1",
+        "reflect-metadata": "^0.1.13",
+        "tsyringe": "^4.8.0",
+        "winston": "^3.17.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.10.4",
+        "typescript": "^5.3.3",
+        "@types/bun": "latest"
+    }
+}
