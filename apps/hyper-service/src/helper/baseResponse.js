@@ -18,7 +18,7 @@ export const BaseResponse = (res, resMessage, type, result = null) => {
       status = 403;
       break;
     case 'forbidden':
-      response = BusinessException.unauthorizedResponse(resMessage); // Assuming the same method is reused
+      response = BusinessException.unauthorizedResponse(resMessage);
       status = 403;
       break;
     case 'internalServerError':
@@ -29,5 +29,8 @@ export const BaseResponse = (res, resMessage, type, result = null) => {
       response = BusinessException.successResponse(result, resMessage);
   }
 
-  res.status(status).json(response);
+  // Set headers and send response
+  res.writeHeader("Content-Type", "application/json");
+  res.writeStatus(`${status}`);
+  res.end(JSON.stringify(response));
 };

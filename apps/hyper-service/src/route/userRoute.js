@@ -1,8 +1,11 @@
-import HyperExpress from 'hyper-express';
 import { getUser } from '../controller/usersController.js';
 
-const userRoute = new HyperExpress.Router();
-
-userRoute.route('/').get(getUser);
+const userRoute = [
+  {
+    method: "GET",
+    path: "/users",
+    handler: getUser,
+  },
+];
 
 export default userRoute;

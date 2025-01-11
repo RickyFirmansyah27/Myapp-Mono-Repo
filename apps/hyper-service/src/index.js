@@ -1,31 +1,58 @@
-import HyperExpress from "hyper-express";
-import cors from "cors";
+import uWS from "uWebSockets.js";
 import { routes } from "./route/index.js";
 import { Logger } from "./helper/logger.js";
 
-const app = new HyperExpress.Server();
 const port = 8105;
 
-app.use(cors({
-  origin: '*',
-}));
+// Create the uWebSockets.js app
+const app = uWS.App();
 
-// Register all routes dynamically
-routes.forEach(route => {
-  app.use(route.path, route.handler);
+// Helper function to handle CORS
+const corsHandler = (res) => {
+  res.writeHeader("Access-Control-Allow-Origin", "*");
+  res.writeHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.writeHeader("Access-Control-Allow-Headers", "Content-Type");
+};
+
+// Handle preflight requests
+app.options("/*", (res, req) => {
+  corsHandler(res);
+  res.writeStatus("204 No Content").end();
 });
 
+// Register routes dynamically
+routes.forEach((route) => {
+  const { method, path, handler } = route;
 
-app.listen(port, async () => {
-  try {
-      Logger.info(`[Hyper-Service] Server is running on port ${port}`);
-  } catch (error) {
-      if (error instanceof Error) {
-          Logger.error(
-              `Error starting server: Message: ${error.message} | Stack: ${error.stack}`
-          );
-      } else {
-          Logger.error(`Error starting server: ${String(error)}`);
-      }
+  // Add the route to the app
+  app[method.toLowerCase()](path, (res, req) => {
+    corsHandler(res); // Add CORS headers to every response
+
+    // Use a helper to collect body data if needed
+    if (["post", "put"].includes(method.toLowerCase())) {
+      let buffer = "";
+      res.onData((chunk, isLast) => {
+        buffer += new TextDecoder("utf-8").decode(chunk);
+        if (isLast) {
+          try {
+            const body = JSON.parse(buffer);
+            handler(res, req, body); // Pass the body to the handler
+          } catch (err) {
+            res.writeStatus("400 Bad Request").end("Invalid JSON");
+          }
+        }
+      });
+    } else {
+      handler(res, req); // Call the handler for GET, DELETE, etc.
+    }
+  });
+});
+
+// Start the server
+app.listen(port, (listenSocket) => {
+  if (listenSocket) {
+    Logger.info(`[Hyper-Service] Server is running on port ${port}`);
+  } else {
+    Logger.error(`[Hyper-Service] Failed to start server on port ${port}`);
   }
 });
