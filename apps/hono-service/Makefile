@@ -13,7 +13,7 @@ build:
 clean:
 	$rm -rf ./dist
 
-start:
+run:
 	$(BUN) run ./dist/index.js
 
 dev:

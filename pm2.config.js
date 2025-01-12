@@ -40,7 +40,7 @@ module.exports = {
     {
       name: "hono-service",
       script: "make",
-      args: "start",
+      args: "run",
       cwd: "apps/hono-service",
       log_date_format: "YYYY-MM-DD HH:mm:ss",
       output: "logs/hono-service-out.log",  // Log output

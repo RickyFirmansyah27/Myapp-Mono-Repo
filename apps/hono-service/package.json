@@ -13,7 +13,7 @@
         "build": "make build",
         "clean": "make clean",
         "prebuild": "npm run clean",
-        "start": "make start"
+        "start": "make run"
     },
     "dependencies": {
         "@hapi/boom": "^10.0.0",
