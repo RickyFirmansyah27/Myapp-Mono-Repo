@@ -37,16 +37,15 @@ module.exports = {
       output: "logs/fiber-service-out.log",  // Log output
       error: "logs/fiber-service-error.log", // Log error
     },
-    // issue looping pm2 run nodemon
-    // {
-    //   name: "hyper-service",
-    //   script: "make",
-    //   args: "run",
-    //   cwd: "apps/hyper-service",
-    //   log_date_format: "YYYY-MM-DD HH:mm:ss",
-    //   output: "logs/hyper-service-out.log",  // Log output
-    //   error: "logs/hyper-service-error.log", // Log error
-    // },
+    {
+      name: "hono-service",
+      script: "make",
+      args: "start",
+      cwd: "apps/hono-service",
+      log_date_format: "YYYY-MM-DD HH:mm:ss",
+      output: "logs/hono-service-out.log",  // Log output
+      error: "logs/hono-service-error.log", // Log error
+    },
     {
       name: "vertx-service",
       script: "make",

@@ -8,7 +8,7 @@
     "django": "turbo run dev --filter=django-service",
     "dotnet": "turbo run dev --filter=dotnet-service",
     "fiber": "turbo run dev --filter=fiber-service",
-    "hyper": "turbo run dev --filter=hyper-service",
+    "hono": "turbo run dev --filter=hono-service",
     "vertx": "turbo run dev --filter=vertx-service",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""

@@ -9,11 +9,11 @@
     "type": "module",
     "module": "src/index.js",
     "scripts": {
-        "dev": "bun run --hot src/index.ts",
-        "build": "bun build ./src/index.ts --outdir ./dist --target node",
-        "clean": "rm -rf ./dist",
+        "dev": "make dev",
+        "build": "make build",
+        "clean": "make clean",
         "prebuild": "npm run clean",
-        "start": "bun run ./dist/index.js"
+        "start": "make start"
     },
     "dependencies": {
         "@hapi/boom": "^10.0.0",
