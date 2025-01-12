@@ -4,6 +4,6 @@ install:
 build:
 	dotnet publish -c Release -r win-x64 --self-contained true -o dist
 
-dev:
+run:
 	cd dist && dotnet-service.exe
 
