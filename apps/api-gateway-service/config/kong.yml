@@ -58,6 +58,15 @@ services:
         strip_path: true
         preserve_host: false
 
+  - name: hono-service
+    url: http://vertx-services:8105
+    routes:
+      - name: hono-route
+        paths:
+          - /hono
+        strip_path: true
+        preserve_host: false
+
   - name: vertx-service
     url: http://vertx-services:8106
     routes:
