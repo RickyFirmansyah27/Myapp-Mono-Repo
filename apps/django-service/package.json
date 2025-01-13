@@ -1,7 +1,6 @@
 {
-    "name": "django-service",
-    "scripts": {
-        "dev": "make run",
-        "install": "make install"
-    }
+  "name": "django-service",
+  "scripts": {
+    "dev": "make run"
+  }
 }

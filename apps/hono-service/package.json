@@ -10,9 +10,8 @@
     "module": "src/index.js",
     "scripts": {
         "dev": "make dev",
-        "build": "make build",
+        "build": "bun build ./src/index.ts --outdir ./dist --target node",
         "clean": "make clean",
-        "prebuild": "npm run clean",
         "start": "make run"
     },
     "dependencies": {

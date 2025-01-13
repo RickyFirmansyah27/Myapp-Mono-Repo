@@ -20,7 +20,7 @@ services:
       - "8102:8102"
     networks:
       - my-app-network
-  
+
   dotnet-services:
     image: dotnet-services
     build:
@@ -46,8 +46,8 @@ services:
   hono-services:
     image: hono-services
     build:
-      context: ./apps/hono-service
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: apps/hono-service/Dockerfile
     container_name: hono-services
     ports:
       - "8105:8105"
@@ -97,7 +97,7 @@ services:
     ports:
       - "8080:8000/tcp"
     healthcheck:
-      test: [ "CMD", "kong", "health" ]
+      test: ["CMD", "kong", "health"]
       interval: 10s
       timeout: 10s
       retries: 10
