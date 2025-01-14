@@ -59,7 +59,7 @@ services:
         preserve_host: false
 
   - name: hono-service
-    url: http://vertx-services:8105
+    url: http://hono-services:8105
     routes:
       - name: hono-route
         paths:
