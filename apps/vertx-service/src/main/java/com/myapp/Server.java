@@ -3,6 +3,7 @@ package com.myapp;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.ext.web.handler.LoggerHandler;
 import com.myapp.routes.Routes;
 
 public class Server {
@@ -14,9 +15,12 @@ public class Server {
         // Menambahkan BodyHandler untuk menerima data POST jika diperlukan
         router.route().handler(BodyHandler.create());
 
-        // Menjalankan server di port 8006
+        // Menambahkan LoggerHandler untuk mencatat log request secara otomatis
+        router.route().handler(LoggerHandler.create());
+
+        // Menjalankan server di port 8106
         vertx.createHttpServer()
-            .requestHandler(router)
+            .requestHandler(router)  // Menetapkan router sebagai request handler
             .listen(port, res -> {
                 if (res.succeeded()) {
                     System.out.println("[Vertx-Service] Server is running on port " + port);

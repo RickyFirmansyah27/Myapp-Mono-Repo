@@ -1,0 +1,28 @@
+<configuration>
+
+    <!-- Appender untuk menampilkan log di konsol -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Format log dengan waktu, thread, level, logger, dan pesan -->
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %highlight(%-5level){FANSI} %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root logger untuk menampilkan log INFO dan lebih tinggi -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <!-- Logger untuk paket tertentu dengan level WARN -->
+    <logger name="com.myapp.controller" level="INFO">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <!-- Logger untuk io.netty agar hanya menampilkan level WARN dan ERROR -->
+    <logger name="io.netty" level="WARN">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+</configuration>
