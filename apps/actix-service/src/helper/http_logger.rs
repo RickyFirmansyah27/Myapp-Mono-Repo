@@ -2,7 +2,7 @@ use actix_web::{
     dev::{Service, ServiceRequest, ServiceResponse, Transform},
     Error,
 };
-use serde_json::json;
+use serde_json::{json, to_string};
 use futures::future::{ok, Ready};
 use std::sync::Arc;
 use std::time::Instant;
@@ -47,12 +47,12 @@ pub struct HttpLoggerService<S> {
 }
 
 impl<S> HttpLoggerService<S> {
-    fn headers_to_json(headers: &actix_web::http::header::HeaderMap) -> serde_json::Value {
+    fn headers_to_string(headers: &actix_web::http::header::HeaderMap) -> String {
         headers
             .iter()
-            .filter_map(|(name, value)| value.to_str().ok().map(|v| (name.to_string(), json!(v))))
-            .collect::<serde_json::Map<_, _>>()
-            .into()
+            .map(|(name, value)| format!("{}: {}", name, value.to_str().unwrap_or("")))
+            .collect::<Vec<String>>()
+            .join(", ")
     }
 }
 
@@ -73,43 +73,54 @@ where
         let start = Instant::now();
         let method = req.method().clone();
         let uri = req.uri().clone();
-        let headers = Self::headers_to_json(req.headers());
+        let headers = Self::headers_to_string(req.headers());
         let logger = self.logger.clone();
 
         let fut = self.service.call(req);
 
         Box::pin(async move {
+            // Log request information inside the async block
+            let request_log = format!(
+                "Request | Method: {} | Headers: {} | URL: {}",
+                method.to_string(),
+                headers,
+                uri.to_string()
+            );
+
+            // Send formatted request log
+            logger.info(request_log).await;
+
             let result = fut.await;
             let duration = start.elapsed();
 
             match result {
                 Ok(response) => {
-                    let response_fields = json!({
-                        "method": method.to_string(),
-                        "uri": uri.to_string(),
-                        "headers": headers,
-                        "status": response.status().as_u16(),
-                        "duration_ms": duration.as_millis(),
-                    });
+                    // Format duration to milliseconds
+                    let duration_ms = duration.as_secs_f64() * 1000.0; // Convert to milliseconds
+                    let response_log = format!(
+                        "Response | Method: {} | URL: {} | Status: {} | Duration: {:.2} ms",
+                        method.to_string(),
+                        uri.to_string(),
+                        response.status().as_u16(),
+                        duration_ms
+                    );
 
-                    logger
-                        .info(format!("Request completed: {}", response_fields))
-                        .await;
+                    // Send formatted response log
+                    logger.info(response_log).await;
 
                     Ok(response)
                 }
                 Err(e) => {
-                    let error_fields = json!({
+                    let error_log = json!( {
                         "method": method.to_string(),
-                        "uri": uri.to_string(),
-                        "headers": headers,
+                        "url": uri.to_string(),
                         "error": format!("{:?}", e),
-                        "duration_ms": duration.as_millis(),
+                        "duration": duration.as_millis(),
                     });
 
-                    logger
-                        .error(format!("Request failed: {}", error_fields))
-                        .await;
+                    // Convert error_log to string
+                    let error_log_str = to_string(&error_log).unwrap_or_else(|e| format!("Error serializing error: {}", e));
+                    logger.error(format!("Request failed | {}", error_log_str)).await;
 
                     Err(e)
                 }
