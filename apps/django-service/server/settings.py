@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-import logging
+from logtail import LogtailHandler
 import colorlog
 from urllib.parse import urlparse
 
@@ -136,6 +136,11 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'colorized',
         },
+        'logtail': {
+            'class': 'logtail.LogtailHandler',
+            'source_token': 'AtjXiGfj7t6HkkUxCDb2YhJJ',
+            'level': 'INFO',
+        },
     },
     'formatters': {
         'colorized': {
@@ -158,13 +163,19 @@ LOGGING = {
         'level': 'DEBUG',
     },
     'loggers': {
-        'django': {  # Specific configuration for Django
-            'handlers': ['console'],
+        'request': {
+            'handlers': ['console', 'logtail'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'response': {
+            'handlers': ['console', 'logtail'],
             'level': 'INFO',
             'propagate': True,
         },
     },
 }
+
 
 
 # Static files (CSS, JavaScript, Images)

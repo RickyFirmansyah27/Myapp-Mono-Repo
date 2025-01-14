@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from api.response.helper import BaseResponse
 
 # Configure logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('response')
 
 
 @api_view(['GET'])
