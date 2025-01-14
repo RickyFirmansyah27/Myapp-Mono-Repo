@@ -4,6 +4,8 @@ import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.LoggerHandler;
+
+import com.myapp.helper.HttpLogger;
 import com.myapp.routes.Routes;
 
 public class Server {
@@ -14,6 +16,9 @@ public class Server {
 
         // Menambahkan BodyHandler untuk menerima data POST jika diperlukan
         router.route().handler(BodyHandler.create());
+
+        // Menambahkan RequestLoggingMiddleware untuk mencatat log dengan format khusus
+        router.route().handler(HttpLogger::logRequest);  
 
         // Menambahkan LoggerHandler untuk mencatat log request secara otomatis
         router.route().handler(LoggerHandler.create());
