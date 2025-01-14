@@ -9,6 +9,9 @@ public class Routes {
         Router router = Router.router(vertx);
         var basePrefix = "/api";
 
+        // Index
+        router.get("/").handler(UserController::Index);
+
         // Definisikan rute dan hubungkan ke controller
         router.get(basePrefix + "/users").handler(UserController::getUsers);
         router.get(basePrefix + "/users/:id").handler(UserController::getUserById);

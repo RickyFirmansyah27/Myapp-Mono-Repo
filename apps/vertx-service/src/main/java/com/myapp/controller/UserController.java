@@ -11,6 +11,10 @@ import java.util.Map;
 
 public class UserController {
 
+    public static void Index(RoutingContext context) {
+        BaseResponse.sendResponse(context, "Welcome to Vertx Service", "success", null);
+    }
+
     // Get all users
     public static void getUsers(RoutingContext context) {
         // Dummy response for all users
