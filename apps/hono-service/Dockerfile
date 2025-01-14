@@ -2,13 +2,17 @@
 FROM oven/bun:1 AS builder
 WORKDIR /app
 
-# Copy seluruh proyek termasuk semua packages dan apps
-COPY . .
+# Copy dependencies
+COPY package.json .
 
 # Install dependencies
 RUN bun install
 
-# Build semua packages (misalnya `bun build` digunakan untuk membuild package)
+COPY . .
+
+# Build hono service
+WORKDIR /app/apps/hono-service
+RUN bun install
 RUN bun run build
 
 # Stage 2: Runner (Production)
@@ -16,8 +20,7 @@ FROM oven/bun:1-slim AS runner
 WORKDIR /app
 
 # Copy hasil build dari packages dan hono-service
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package.json ./
+COPY --from=builder /app/apps/hono-service/dist ./dist
 
 # Set up environment
 ENV PORT=8105
