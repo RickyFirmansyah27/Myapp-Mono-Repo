@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using dotnet_service.Helpers;
 using dotnet_service.Models;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace dotnet_service.Controllers
 {
@@ -8,6 +9,11 @@ namespace dotnet_service.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
+        private readonly ILogger<UserController> _logger;
+        public UserController(ILogger<UserController> logger)
+        {
+            _logger = logger;
+        }
 
         // GET: api/user
         [HttpGet]
@@ -19,6 +25,7 @@ namespace dotnet_service.Controllers
             response.Success = true;
             response.Message = "Get all users";
             response.Data = data;
+
             return Ok(response);
         }
 
