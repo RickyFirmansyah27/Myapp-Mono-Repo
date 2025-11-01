@@ -14,7 +14,9 @@ public class Routes {
 
         // Definisikan rute dan hubungkan ke controller
         router.get(basePrefix + "/users").handler(UserController::getUsers);
+        router.post(basePrefix + "/users").handler(UserController::createUser);
         router.get(basePrefix + "/users/:id").handler(UserController::getUserById);
+        router.put(basePrefix + "/users/:id").handler(UserController::updateUser);
         router.delete(basePrefix + "/users/:id").handler(UserController::deleteUserById);
 
         return router;
