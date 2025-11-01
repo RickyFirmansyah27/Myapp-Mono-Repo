@@ -9,17 +9,17 @@ OUTPUT_BINARY=$(DIST_DIR)/fiber.exe
 # 	$(GO) run main.go
 
 build:
-	@if not exist $(DIST_DIR) mkdir $(DIST_DIR)
+	@mkdir -p $(DIST_DIR)
 	$(GO) build -o $(OUTPUT_BINARY)
 
-run: 
-	cd dist && fiber.exe
+run:
+	cd dist && ./fiber.exe
 
 test:
 	$(GO) test ./...
 
 clean:
-	@if exist $(DIST_DIR) rmdir /s /q $(DIST_DIR)
+	@rm -rf $(DIST_DIR)
 
 help:
 	@echo "Available targets:"
