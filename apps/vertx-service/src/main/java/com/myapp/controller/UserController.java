@@ -65,7 +65,7 @@ public class UserController {
 
         try {
             // Get user data from request body
-            Map<String, Object> userData = context.getBodyAsJson().getMap();
+            Map<String, Object> userData =  context.body().asJsonObject().getMap();
             
             if (userData == null || userData.isEmpty()) {
                 logger.warn("User data is required");
@@ -96,7 +96,7 @@ public class UserController {
 
         try {
             // Get user data from request body
-            Map<String, Object> userData = context.getBodyAsJson().getMap();
+            Map<String, Object> userData = context.body().asJsonObject().getMap();
             
             if (userData == null || userData.isEmpty()) {
                 logger.warn("User data is required");
