@@ -8,6 +8,7 @@ mod helper;
 mod controllers;
 mod models;
 mod routes;
+mod services;
 
 use crate::models::app_model::AppState;
 use crate::routes::index;
